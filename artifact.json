@@ -1,0 +1,11 @@
+{
+    "outputPath": "build-output.zip",
+    "entries": [
+        {
+            "type": "directory",
+            "source": "scripts/build",
+            "destination": "/"
+        }
+    ],
+    "variables": []
+}
