@@ -7,7 +7,7 @@ if not pygame.font: print("fonts have been disabled; whoops")
 if not pygame.mixer: print("sound has been disabled; whoops")
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("ayyyy lmao")
+pygame.display.set_caption("pygame testapp")
 background = pygame.Surface(screen.get_size())
 scene = pyplayground.Scene()
 while True:
