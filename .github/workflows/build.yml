@@ -23,4 +23,4 @@ jobs:
         pipenv sync
     - name: run build script
       shell: bash
-      run: pipenv run ./run-script build
+      run: pipenv run python -m scripts build
