@@ -17,7 +17,7 @@ jobs:
         python-version: 3.9
         architecture: x64
     - name: setup node
-      if: matrix.os-name == "ubuntu"
+      if: ${{ matrix.os-name == 'ubuntu' }}
       shell: bash
       run: |
         curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
