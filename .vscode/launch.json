@@ -5,12 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug script",
+            "name": "debug build script",
             "type": "python",
             "request": "launch",
             "module": "scripts",
             "args": [
                 "build"
+            ],
+            "python": "python3"
+        },
+        {
+            "name": "debug run script",
+            "type": "python",
+            "request": "launch",
+            "module": "scripts",
+            "args": [
+                "run",
+                "scripts/build/",
+                "main.py"
             ],
             "python": "python3"
         }

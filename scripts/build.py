@@ -1,26 +1,33 @@
+from typing import Tuple
 from scripts.script_types import *
-class CodeRepresentation:
-    def __init__(self, code: types.CodeType, relative_bytecode_path: str):
-        self.argcount = code.co_argcount
-        self.cellvars = code.co_cellvars
-        #self.consts = code.co_consts
-        self.filename = code.co_filename
-        self.firstlineno = code.co_firstlineno
-        self.flags = code.co_flags
-        self.freevars = code.co_freevars
-        self.kwonlyargcount = code.co_kwonlyargcount
-        self.lnotab = code.co_lnotab
-        self.name = code.co_name
-        self.nlocals = code.co_nlocals
-        self.posonlyargcount = code.co_posonlyargcount
-        self.stacksize = code.co_stacksize
-        self.varnames = code.co_varnames
-        self.relative_bytecode_path = relative_bytecode_path
-def build():
+def get_code_dict(code: CodeType, relative_bytecode_path: str):
+    return {
+        "argcount": code.co_argcount,
+        "cellvars": code.co_cellvars,
+        # todo: translate tuples such as consts
+        #"consts": code.co_consts,
+        "filename": code.co_filename,
+        "firstlineno": code.co_firstlineno,
+        "flags": code.co_flags,
+        "freevars": code.co_freevars,
+        "kwonlyargcount": code.co_kwonlyargcount,
+        "lnotab": code.co_lnotab,
+        "name": code.co_name,
+        "names": code.co_names,
+        "nlocals": code.co_nlocals,
+        "posonlyargcount": code.co_posonlyargcount,
+        "stacksize": code.co_stacksize,
+        "varnames": code.co_varnames,
+        "relative_bytecode_path": relative_bytecode_path
+    }
+def build(args: list[str]):
     directory_name = os.path.dirname(os.path.realpath(__file__))
     source_directory = directory_name + "/../"
     sources = None
-    with open(source_directory + "sources.yml", "r") as stream:
+    sources_file = source_directory + "sources.yml"
+    if len(args) >= 3:
+        sources_file = args[2]
+    with open(sources_file, "r") as stream:
         try:
             sources = yaml.safe_load(stream)
         except yaml.YAMLError as exc:
@@ -39,7 +46,7 @@ def build():
         output.write(data.co_code)
         output.close()
         output = open(directory_name + "/build/" + str(path) + ".yml", "w")
-        rep = CodeRepresentation(data, str(path) + ".bytecode")
+        rep = get_code_dict(data, str(path) + ".bytecode")
         yaml.dump(rep, output)
         output.close()
         file.close()

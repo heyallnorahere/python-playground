@@ -1,4 +1,4 @@
 import os, os.path
 import yaml
-import types
+from types import CodeType, SimpleNamespace
 import pickle

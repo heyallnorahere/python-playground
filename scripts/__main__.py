@@ -1,15 +1,14 @@
-import scripts
+from scripts import *
 import sys
 if len(sys.argv) < 2:
     print("No command specified; aborting...")
     exit(1)
-def build():
-    scripts.build()
 commands = {
-    "build": build
+    "build": build,
+    "run": run
 }
 try:
-    commands[sys.argv[1]]()
+    commands[sys.argv[1]](sys.argv)
 except KeyError as exc:
-    print("Command not found! Sorry :/ (Specified command: {})".format(exc))
+    print("Command not found! (Specified command: {})".format(exc))
     exit(1)
