@@ -11,7 +11,8 @@
             "module": "scripts",
             "args": [
                 "build"
-            ]
+            ],
+            "python": "python3"
         }
     ]
 }
