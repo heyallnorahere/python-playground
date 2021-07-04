@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-freetype-py = "*"
 pygame = "*"
+pyyaml = "*"
 
 [dev-packages]
 
