@@ -1,11 +1,19 @@
 from typing import Tuple
 from scripts.script_types import *
-def get_code_dict(code: CodeType, relative_bytecode_path: str):
+def translate_tuple(input: tuple):
+    output = []
+    for element in input:
+        if element.__class__ == CodeType:
+            output.append(get_code_dict(element))
+        else:
+            output.append(element)
+    return tuple(output)
+def get_code_dict(code: CodeType):
     return {
         "argcount": code.co_argcount,
         "cellvars": code.co_cellvars,
-        # todo: translate tuples such as consts
-        #"consts": code.co_consts,
+        "code": code.co_code,
+        "consts": translate_tuple(code.co_consts),
         "filename": code.co_filename,
         "firstlineno": code.co_firstlineno,
         "flags": code.co_flags,
@@ -17,14 +25,11 @@ def get_code_dict(code: CodeType, relative_bytecode_path: str):
         "nlocals": code.co_nlocals,
         "posonlyargcount": code.co_posonlyargcount,
         "stacksize": code.co_stacksize,
-        "varnames": code.co_varnames,
-        "relative_bytecode_path": relative_bytecode_path
+        "varnames": code.co_varnames
     }
 def build(args: list[str]):
-    directory_name = os.path.dirname(os.path.realpath(__file__))
-    source_directory = directory_name + "/../"
     sources = None
-    sources_file = source_directory + "sources.yml"
+    sources_file = "./sources.yml"
     if len(args) >= 3:
         sources_file = args[2]
     with open(sources_file, "r") as stream:
@@ -35,20 +40,20 @@ def build(args: list[str]):
     if sources == None:
         print("Could not load sources list; terminating...")
         exit(1)
+    source_directory = str(sources["directory"])
+    if not source_directory.endswith("/"):
+        source_directory += "/"
     for path in sources["files"]:
         print("Compiling %s..." % (path))
         file = open(source_directory + str(path), "r")
         data = compile(file.read(), path, "exec")
         try:
-            os.mkdir(directory_name + "/build/" + os.path.dirname(path))
+            os.mkdir(source_directory + "build/" + os.path.dirname(path))
         except FileExistsError: pass
-        output = open(directory_name + "/build/" + str(path) + ".bytecode", "wb")
-        output.write(data.co_code)
-        output.close()
-        output = open(directory_name + "/build/" + str(path) + ".yml", "w")
-        rep = get_code_dict(data, str(path) + ".bytecode")
+        output = open(source_directory + "build/" + str(path) + ".yml", "w")
+        rep = get_code_dict(data)
         yaml.dump(rep, output)
         output.close()
         file.close()
         output.close()
-    print("Output written to: %s" % (directory_name + "/build"))
+    print("Output written to: %s" % (source_directory + "build"))

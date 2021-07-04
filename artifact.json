@@ -3,7 +3,7 @@
     "entries": [
         {
             "type": "directory",
-            "source": "scripts/build",
+            "source": "build",
             "destination": "/"
         }
     ],
