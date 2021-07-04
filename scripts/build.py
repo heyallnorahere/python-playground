@@ -56,4 +56,4 @@ def build(args: list[str]):
         output.close()
         file.close()
         output.close()
-    print("Output written to: %s" % (source_directory + "build"))
+    print("Output written to: %s" % (os.path.realpath(source_directory + "build")))
