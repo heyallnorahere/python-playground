@@ -26,11 +26,10 @@ jobs:
     - name: sync dependencies
       shell: bash
       run: |
-        pip3 install pipenv
-        pipenv sync
+        pip3 install -r requirements.txt
     - name: run build script
       shell: bash
-      run: pipenv run python -m scripts build
+      run: python3 -m scripts build
     - name: create package
       id: artifact-creation
       uses: yodasoda1219/create-package@v2.1

@@ -23,8 +23,8 @@
         },
         {
             "type": "file",
-            "source": "Pipfile",
-            "destination": "Pipfile"
+            "source": "requirements.txt",
+            "destination": "requirements.txt"
         }
     ],
     "variables": []

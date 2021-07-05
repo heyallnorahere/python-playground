@@ -1,4 +1,3 @@
 @echo off
-pip3 install pipenv > nul
-pipenv sync > nul
-pipenv run python -m scripts %*
+pip3 install -r requirements.txt > nul
+python3 -m scripts %*
