@@ -3,7 +3,7 @@ import importlib.util
 import importlib._bootstrap_external as bse
 import dis
 def compile_file(build_dir: str, script_path: str):
-    cache_dir = os.path.join(build_dir, "cache")
+    cache_dir = os.path.join(build_dir, "__cache__")
     output_path = os.path.join(cache_dir, script_path) + "c"
     code_data = None
     with open(os.path.join(build_dir, script_path) + ".yml", "r") as stream:

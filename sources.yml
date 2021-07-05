@@ -1,6 +1,7 @@
 directory: ./
 files:
-- main.py
+- start.py
 - pyplayground/__init__.py
+- pyplayground/__main__.py
 - pyplayground/gameobject.py
 - pyplayground/scene.py

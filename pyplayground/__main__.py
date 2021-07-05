@@ -1,4 +1,3 @@
-import builtins
 import os, sys
 import pygame, pygame.font, pygame.mixer, pygame.display, pygame.event
 from pygame.locals import *
