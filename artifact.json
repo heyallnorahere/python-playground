@@ -20,6 +20,11 @@
             "type": "file",
             "source": "run-script.bat",
             "destination": "run-script.bat"
+        },
+        {
+            "type": "file",
+            "source": "Pipfile",
+            "destination": "Pipfile"
         }
     ],
     "variables": []

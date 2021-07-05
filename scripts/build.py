@@ -1,5 +1,8 @@
-from scripts.script_types import *
-class CodeRepresentationTable:
+import os, os.path
+import yaml
+from types import CodeType
+import scripts.util as util
+class PythonScriptDictionary:
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
 def translate_tuple(input: tuple):
@@ -11,7 +14,7 @@ def translate_tuple(input: tuple):
             output.append(element)
     return tuple(output)
 def get_code_dict(code: CodeType):
-    return CodeRepresentationTable(
+    return PythonScriptDictionary(
         argcount=code.co_argcount,
         cellvars=code.co_cellvars,
         code=code.co_code,
@@ -44,17 +47,31 @@ def build(args: list[str]):
         print("Could not load sources list; terminating...")
         exit(1)
     source_directory = os.path.realpath(str(sources["directory"]))
+    build_directory = os.path.join(source_directory, "build")
     for path in sources["files"]:
         print("Compiling %s..." % (path))
         file = open(os.path.join(source_directory, str(path)), "r")
         data = compile(file.read(), path, "exec")
         try:
-            os.mkdir(os.path.join(source_directory, "build", os.path.dirname(path)))
+            os.mkdir(os.path.join(build_directory, os.path.dirname(path)))
         except FileExistsError: pass
-        output = open(os.path.join(source_directory, "build/", str(path)) + ".yml", "w")
+        output = open(os.path.join(build_directory, str(path)) + ".yml", "w")
         rep = get_code_dict(data)
         yaml.dump(rep, output)
         output.close()
         file.close()
         output.close()
+    config = PythonScriptDictionary(
+        assets=None
+    )
+    try:
+        assets_directory = sources["assets-directory"]
+        if assets_directory == None:
+            raise ValueError()
+        util.copy_directory(os.path.join(source_directory, assets_directory), build_directory)
+        config.assets=assets_directory
+    except (KeyError, ValueError): pass
+    with open(os.path.join(build_directory, "config.yml"), "w") as stream:
+        yaml.dump(config, stream)
+        stream.close()
     print("Output written to: {}".format(os.path.join(source_directory, "build")))

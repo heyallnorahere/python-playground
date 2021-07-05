@@ -3,3 +3,4 @@ build/
 .vscode/
 __cache__/
 *.pyc
+.DS_Store
