@@ -6,6 +6,7 @@ import pyplayground
 if not pygame.font: print("fonts have been disabled; whoops")
 if not pygame.mixer: print("sound has been disabled; whoops")
 pygame.init()
+print("This is currently running in: {}".format(os.getcwd()))
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("pygame testapp")
 background = pygame.Surface(screen.get_size())

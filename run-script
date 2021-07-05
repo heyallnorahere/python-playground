@@ -1,2 +1,4 @@
 #!/bin/bash
+pip3 install pipenv &> /dev/null
+pipenv sync &> /dev/null
 pipenv run python -m scripts "$@"

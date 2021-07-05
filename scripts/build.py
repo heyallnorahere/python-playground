@@ -1,4 +1,3 @@
-from typing import Tuple
 from scripts.script_types import *
 def translate_tuple(input: tuple):
     output = []
@@ -35,6 +34,7 @@ def build(args: list[str]):
     with open(sources_file, "r") as stream:
         try:
             sources = yaml.safe_load(stream)
+            stream.close()
         except yaml.YAMLError as exc:
             print(exc)
     if sources == None:
