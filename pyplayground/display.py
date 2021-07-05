@@ -6,3 +6,5 @@ class Display:
     def create_surface(self, size: pygame.Vector2 = None):
         surface = pygame.Surface(self.display.get_size())
         return surface.convert(self.display)
+    def update(self):
+        pygame.display.update()
