@@ -40,20 +40,18 @@ def build(args: list[str]):
     if sources == None:
         print("Could not load sources list; terminating...")
         exit(1)
-    source_directory = str(sources["directory"])
-    if not source_directory.endswith("/"):
-        source_directory += "/"
+    source_directory = os.path.realpath(str(sources["directory"]))
     for path in sources["files"]:
         print("Compiling %s..." % (path))
-        file = open(source_directory + str(path), "r")
+        file = open(os.path.join(source_directory, str(path)), "r")
         data = compile(file.read(), path, "exec")
         try:
-            os.mkdir(source_directory + "build/" + os.path.dirname(path))
+            os.mkdir(os.path.join(source_directory, "build", os.path.dirname(path)))
         except FileExistsError: pass
-        output = open(source_directory + "build/" + str(path) + ".yml", "w")
+        output = open(os.path.join(source_directory, "build/", str(path)) + ".yml", "w")
         rep = get_code_dict(data)
         yaml.dump(rep, output)
         output.close()
         file.close()
         output.close()
-    print("Output written to: %s" % (os.path.realpath(source_directory + "build")))
+    print("Output written to: {}".format(os.path.join(source_directory, "build")))

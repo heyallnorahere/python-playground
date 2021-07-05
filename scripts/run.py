@@ -37,7 +37,10 @@ def run(args: list[str]):
         for name in files:
             if name.endswith(".py.yml"):
                 fullpath = os.path.join(root, name)
-                strings = fullpath.rsplit(build_dir)
+                trailing_slash_path = build_dir
+                if not build_dir.endswith("/"):
+                    trailing_slash_path += "/"
+                strings = fullpath.split(trailing_slash_path)
                 relative_path = strings[len(strings) - 1] # splits the path, and gets the last section between occurrences of the separator
                 script_path = relative_path.split(".yml")[0] # next, gets the relative path of the script before compilation
                 output_path = compile_file(build_dir, script_path)
