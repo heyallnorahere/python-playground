@@ -3,6 +3,8 @@ files:
 - start.py
 - pyplayground/__init__.py
 - pyplayground/__main__.py
+- pyplayground/display.py
 - pyplayground/gameobject.py
+- pyplayground/image.py
 - pyplayground/scene.py
 assets-directory: assets
