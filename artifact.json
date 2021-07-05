@@ -4,7 +4,22 @@
         {
             "type": "directory",
             "source": "build",
-            "destination": "/"
+            "destination": "data"
+        },
+        {
+            "type": "directory",
+            "source": "scripts",
+            "destination": "scripts"
+        },
+        {
+            "type": "file",
+            "source": "run-script",
+            "destination": "run-script"
+        },
+        {
+            "type": "file",
+            "source": "run-script.bat",
+            "destination": "run-script.bat"
         }
     ],
     "variables": []

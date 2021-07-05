@@ -1,4 +1,3 @@
-import pyplayground
 from pygame import *
 class GameObject:
     def __init__(self):

@@ -1,4 +1,7 @@
 from scripts.script_types import *
+class CodeRepresentationTable:
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
 def translate_tuple(input: tuple):
     output = []
     for element in input:
@@ -8,24 +11,24 @@ def translate_tuple(input: tuple):
             output.append(element)
     return tuple(output)
 def get_code_dict(code: CodeType):
-    return {
-        "argcount": code.co_argcount,
-        "cellvars": code.co_cellvars,
-        "code": code.co_code,
-        "consts": translate_tuple(code.co_consts),
-        "filename": code.co_filename,
-        "firstlineno": code.co_firstlineno,
-        "flags": code.co_flags,
-        "freevars": code.co_freevars,
-        "kwonlyargcount": code.co_kwonlyargcount,
-        "lnotab": code.co_lnotab,
-        "name": code.co_name,
-        "names": code.co_names,
-        "nlocals": code.co_nlocals,
-        "posonlyargcount": code.co_posonlyargcount,
-        "stacksize": code.co_stacksize,
-        "varnames": code.co_varnames
-    }
+    return CodeRepresentationTable(
+        argcount=code.co_argcount,
+        cellvars=code.co_cellvars,
+        code=code.co_code,
+        consts=translate_tuple(code.co_consts),
+        filename=code.co_filename,
+        firstlineno=code.co_firstlineno,
+        flags=code.co_flags,
+        freevars=code.co_freevars,
+        kwonlyargcount=code.co_kwonlyargcount,
+        lnotab=code.co_lnotab,
+        name=code.co_name,
+        names=code.co_names,
+        nlocals=code.co_nlocals,
+        posonlyargcount=code.co_posonlyargcount,
+        stacksize=code.co_stacksize,
+        varnames=code.co_varnames
+    )
 def build(args: list[str]):
     sources = None
     sources_file = "./sources.yml"

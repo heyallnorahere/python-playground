@@ -1,21 +1,32 @@
 from scripts.script_types import *
+from scripts.build import CodeRepresentationTable
 import importlib.util
 import importlib._bootstrap_external as bse
 import dis
+def to_code_object(table: CodeRepresentationTable):
+    return CodeType(table.argcount, table.posonlyargcount, table.kwonlyargcount, table.nlocals, table.stacksize, table.flags, table.code, translate_tuple(table.consts), table.names, table.varnames, table.filename, table.name, table.firstlineno, table.lnotab, table.freevars, table.cellvars)
+def translate_tuple(input: tuple):
+    output = []
+    for element in input:
+        if element.__class__ == CodeRepresentationTable:
+            output.append(to_code_object(element))
+        else:
+            output.append(element)
+    return tuple(output)
 def compile_file(build_dir: str, script_path: str):
     cache_dir = os.path.join(build_dir, "__cache__")
     output_path = os.path.join(cache_dir, script_path) + "c"
     code_data = None
     with open(os.path.join(build_dir, script_path) + ".yml", "r") as stream:
         try:
-            code_data = yaml.load(stream)
+            code_data = yaml.load(stream, Loader=yaml.Loader)
             stream.close()
         except yaml.YAMLError as exc:
             print(exc)
     if code_data == None:
         print("Could not read code data; terminating...")
         exit(1)
-    code = CodeType(code_data["argcount"], code_data["posonlyargcount"], code_data["kwonlyargcount"], code_data["nlocals"], code_data["stacksize"], code_data["flags"], code_data["code"], code_data["consts"], code_data["names"], code_data["varnames"], code_data["filename"], code_data["name"], code_data["firstlineno"], code_data["lnotab"], code_data["freevars"], code_data["cellvars"])
+    code = to_code_object(code_data)
     pyc_data = bse._code_to_timestamp_pyc(code)
     try:
         os.mkdir(os.path.dirname(output_path))

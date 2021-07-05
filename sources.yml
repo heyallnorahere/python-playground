@@ -5,3 +5,4 @@ files:
 - pyplayground/__main__.py
 - pyplayground/gameobject.py
 - pyplayground/scene.py
+assets-directory: assets
