@@ -10,6 +10,10 @@ display = Display(window_size, "pyplayground window")
 scene = Scene()
 manager = TileManager(display)
 manager.load("assets/scenes/initial-scene.yml")
+test_object = GameObject((50, 50))
+test_object.pos = (50, 0)
+test_object.add_component(AnimatedSpriteComponent.create_from_yaml("test-spritesheet", display))
+scene.add(test_object)
 while True:
     for event in pygame.event.get():
         if event.type in (pygame_constants.QUIT, pygame_constants.KEYDOWN):

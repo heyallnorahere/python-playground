@@ -1,0 +1,8 @@
+# ew, french flag, i did not mean to do that
+idle: 0
+animations:
+- sprite-size: !!python/tuple
+  - 50
+  - 50
+  fps: 24
+  y-pixel-offset: 0
