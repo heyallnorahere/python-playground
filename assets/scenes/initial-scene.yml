@@ -13,7 +13,7 @@ tiles:
   - 2
 - !!python/object:pyplayground.tile_manager.TileDescriptor
   tile_position:
-  - 4
+  - 5
   - 2
 - !!python/object:pyplayground.tile_manager.TileDescriptor
   tile_position:
