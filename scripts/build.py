@@ -46,7 +46,7 @@ def build(args: list[str]):
     if sources == None:
         print("Could not load sources list; terminating...")
         exit(1)
-    source_directory = os.path.realpath(str(sources["directory"]))
+    source_directory = os.path.realpath(os.path.join(os.path.dirname(sources_file), sources["directory"]))
     build_directory = os.path.join(source_directory, "build")
     for path in sources["files"]:
         print("Compiling %s..." % (path))
