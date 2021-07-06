@@ -15,6 +15,11 @@ class GameObject:
             component.update(self)
         for child in self.children:
             child.update()
+    def get_component(self, component_class: type):
+        for component in self.components:
+            if component.__class__ == component_class:
+                return component
+        return None
     def render(self, display: Display):
         for component in self.components:
             component.render(self, display)

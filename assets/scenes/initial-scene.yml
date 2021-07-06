@@ -5,5 +5,37 @@ cell_size: !!python/tuple
 tiles:
 - !!python/object:pyplayground.tile_manager.TileDescriptor
   tile_position:
-  - 0
-  - 0
+  - 2
+  - 2
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 3
+  - 2
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 4
+  - 2
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 2
+  - 3
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 3
+  - 3
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 4
+  - 3
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 2
+  - 4
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 3
+  - 4
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 4
+  - 4

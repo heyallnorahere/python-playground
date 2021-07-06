@@ -50,12 +50,12 @@ def build(args: list[str]):
     build_directory = os.path.join(source_directory, "build")
     for path in sources["files"]:
         print("Compiling %s..." % (path))
-        file = open(os.path.join(source_directory, str(path)), "r")
+        file = open(os.path.join(source_directory, path), "r")
         data = compile(file.read(), path, "exec")
         try:
             os.mkdir(os.path.join(build_directory, os.path.dirname(path)))
         except FileExistsError: pass
-        output = open(os.path.join(build_directory, str(path)) + ".yml", "w")
+        output = open(os.path.join(build_directory, path) + ".yml", "w")
         rep = get_code_dict(data)
         yaml.dump(rep, output)
         output.close()
