@@ -1,8 +1,7 @@
-import pygame
 from pyplayground.display import Display
 class GameObject:
-    def __init__(self, size: pygame.Vector2 = (100, 100)):
-        self.pos = pygame.Vector2(0, 0)
+    def __init__(self, size: tuple[int, int] = (100, 100)):
+        self.pos = (0, 0)
         self.size = size
         self.children = []
         self.components = []
