@@ -8,4 +8,5 @@ files:
 - pyplayground/gameobject.py
 - pyplayground/image.py
 - pyplayground/scene.py
+- pyplayground/tile_manager.py
 assets-directory: assets

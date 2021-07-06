@@ -1,0 +1,9 @@
+tileset: ../images/ground.png
+cell_size: !!python/tuple
+- 50
+- 50
+tiles:
+- !!python/object:pyplayground.tile_manager.TileDescriptor
+  tile_position:
+  - 0
+  - 0
