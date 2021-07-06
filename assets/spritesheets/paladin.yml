@@ -1,0 +1,23 @@
+idle: 0
+animations:
+- name: idle
+  sprite-size: !!python/tuple
+  - 32
+  - 32
+  fps: 1.5
+  y-pixel-offset: 0
+  frame-count: 3
+- name: walk-horizontal
+  sprite-size: !!python/tuple
+  - 32
+  - 32
+  fps: 1.5
+  y-pixel-offset: 32
+  frame-count: 4
+- name: walk-down
+  sprite-size: !!python/tuple
+  - 32
+  - 32
+  fps: 1.5
+  y-pixel-offset: 32
+  frame-count: 4

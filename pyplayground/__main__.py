@@ -12,7 +12,9 @@ manager = TileManager(display)
 manager.load("assets/scenes/initial-scene.yml")
 test_object = GameObject((50, 50))
 test_object.pos = (50, 0)
-test_object.add_component(AnimatedSpriteComponent.create_from_yaml("test-spritesheet", display))
+sprite_component = AnimatedSpriteComponent.create_from_yaml("paladin", display)
+sprite_component.play(sprite_component.get_animation_by_name("walk-horizontal"), True)
+test_object.add_component(sprite_component)
 scene.add(test_object)
 while True:
     for event in pygame.event.get():

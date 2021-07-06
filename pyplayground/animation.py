@@ -6,14 +6,17 @@ from math import floor
 import os.path
 import yaml
 class Animation:
-    def __init__(self, sprites: pygame.Surface, sprite_width: int, fps: float):
+    def __init__(self, sprites: pygame.Surface, sprite_width: int, fps: float, name: str, _frame_count: int = None):
         self.frames = list[pygame.Surface]()
         self.playing = False
         self.looping = False
         self.time_offset = 0
         self.current_frame = 0
         self.fps = fps
+        self.name = name
         frame_count = floor(sprites.get_width() / sprite_width)
+        if _frame_count != None:
+            frame_count = _frame_count
         height = sprites.get_height()
         surface_size = (sprite_width, height)
         for frame in range(frame_count):
@@ -65,7 +68,12 @@ class AnimatedSpriteComponent:
             desc = yaml_animations[index]
             sprite_size = desc["sprite-size"]
             fps = desc["fps"]
+            name = desc["name"]
             pixel_offset = desc["y-pixel-offset"]
+            frame_count = None
+            try:
+                frame_count = desc["frame-count"]
+            except KeyError: pass
             surface_size = (spritesheet.surface.get_width(), sprite_size[1])
             blit_clip = pygame.Rect(
                 (0, pixel_offset),
@@ -73,7 +81,7 @@ class AnimatedSpriteComponent:
             )
             surface = pygame.Surface(surface_size)
             surface.blit(spritesheet.surface, (0, 0), blit_clip)
-            animations.append(Animation(surface, sprite_size[0], fps))
+            animations.append(Animation(surface, sprite_size[0], fps, name, frame_count))
         idle_animation = data["idle"]
         return AnimatedSpriteComponent(animations, idle_animation)
     def play(self, index: int, loop: bool = False):
@@ -88,6 +96,12 @@ class AnimatedSpriteComponent:
             return
         self.animations[self.current_animation].stop()
         self.current_animation = self.idle_index
+    def get_animation_by_name(self, name: str):
+        for index in range(len(self.animations)):
+            animation = self.animations[index]
+            if name == animation.name:
+                return index
+        return len(self.animations) # a segmentation fault will occur if this index is used
     def update(self, object: GameObject):
         for animation in self.animations:
             animation.update()
